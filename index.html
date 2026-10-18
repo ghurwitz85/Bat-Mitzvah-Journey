@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Bat Mitzvah Journey</title>
+<style>
+:root{--ink:#202642;--muted:#626b83;--paper:#fffdf8;--lav:#eeeaff;--purple:#6554c0;--gold:#f2c66d;--mint:#dff4e8;--line:#e6e4ef}
+*{box-sizing:border-box}body{margin:0;background:#f5f3fb;color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(125deg,#2d2b58,#6554c0);color:white;padding:28px 18px 24px}
+.wrap{max-width:1000px;margin:auto;padding:0 16px}h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 8px}header p{margin:0;color:#efedff;max-width:680px}
+main{padding:18px 0 50px}.toprow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:8px 0 16px}
+.pill{display:inline-block;background:#fff;color:var(--purple);border:1px solid #dcd5ff;border-radius:99px;padding:6px 11px;font-size:13px;font-weight:700}
+.progressbox{min-width:200px;flex:1;max-width:330px}.progresslabel{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}.bar{height:8px;border-radius:9px;background:#e3e0f0;overflow:hidden}.bar span{display:block;width:0;height:100%;background:var(--purple);transition:width .2s}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tab{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;color:var(--ink);font-weight:700;cursor:pointer}.tab.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px #30255b0a}.card h2,.card h3{margin:0 0 8px}.card p{margin:7px 0;color:var(--muted)}.wide{grid-column:1/-1}.eyebrow{text-transform:uppercase;letter-spacing:.09em;color:var(--purple);font-size:11px;font-weight:800}.bighebrew{font-size:46px;line-height:1.4;text-align:center;direction:rtl;margin:8px 0}.translit{text-align:center;color:var(--muted);font-size:19px}.meaning{text-align:center;font-size:22px;font-weight:800;margin:6px}
+button,.linkbtn{font:inherit;cursor:pointer;border:0;border-radius:11px;padding:10px 14px;background:var(--purple);color:white;font-weight:750;text-decoration:none;display:inline-block}.secondary{background:#f1effb;color:var(--purple);border:1px solid #e0dcfa}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}.choices button{background:#f8f7fd;color:var(--ink);border:1px solid var(--line);text-align:left}.choices button:hover{border-color:var(--purple)}.feedback{min-height:28px;font-weight:700;margin:8px 0}.correct{color:#167447}.wrong{color:#a33c4c}label{display:block;font-weight:700;margin:10px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #d8d5e7;border-radius:10px;background:white;color:var(--ink);font:inherit}small,.small{color:var(--muted);font-size:13px}.lessonlist{display:grid;gap:10px}.lesson{display:flex;gap:12px;align-items:flex-start;padding:13px;border-radius:13px;background:#faf9ff;border:1px solid var(--line)}.lesson .num{background:var(--lav);color:var(--purple);border-radius:9px;padding:6px 9px;font-weight:900}.lesson p{margin:2px 0}.checkrow{display:flex;gap:9px;align-items:flex-start;margin:10px 0}.checkrow input{width:auto;margin-top:6px}.hebrewline{direction:rtl;font-size:27px;line-height:1.8}.note{background:#fff7de;border:1px solid #f4df9b;border-radius:12px;padding:12px;color:#54471f}.hidden{display:none!important}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.card{padding:16px}.choices{grid-template-columns:1fr}.progressbox{max-width:none;min-width:100%}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="pill">HEBREW • TORAH • CONFIDENCE</div>
+<h1>My Bat Mitzvah Journey ✨</h1>
+<p>A friendly, bite-sized learning companion for Hebrew reading, Torah study, chanting practice, Jewish life, and preparing to share your own ideas.</p>
+</div></header>
+<main class="wrap">
+<div class="card" style="margin:14px 0 10px;padding:14px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+<div style="flex:1;min-width:190px"><div class="eyebrow">Personal learning profile</div><strong>Who is learning today?</strong><p class="small" id="profileDescription" style="margin:3px 0 0">Each daughter has her own saved progress, notes, reading assignment, and practice level.</p></div>
+<div style="min-width:210px;flex:0 1 280px"><label for="learnerProfile" style="margin-top:0">Learner</label><select id="learnerProfile" onchange="switchProfile(this.value)"><option value="ella">Ella · older learner</option><option value="margot">Margot · younger learner</option></select></div>
+<div style="min-width:180px;flex:0 1 230px"><label for="learningLevel" style="margin-top:0">Practice level</label><select id="learningLevel" onchange="saveLevel(this.value)"><option value="auto">Adaptive (recommended)</option><option value="starter">Starter · letters and sounds</option><option value="builder">Builder · words and phrases</option><option value="reader">Reader · Torah and interpretation</option></select></div>
+</div>
+<div class="toprow">
+<div><strong id="greeting">Your learning adventure</strong><div class="small" id="practiceGuidance">Short practice sessions count. Try 10–15 minutes at a time.</div></div>
+<div class="progressbox"><div class="progresslabel"><span>Journey progress</span><strong id="progressText">0%</strong></div><div class="bar"><span id="progressBar"></span></div></div>
+</div>
+<nav aria-label="Learning sections">
+<button class="tab active" data-tab="home">Today</button><button class="tab" data-tab="hebrew">Hebrew Lab</button><button class="tab" data-tab="torah">Find My Portion</button><button class="tab" data-tab="meaning">Torah Detective</button><button class="tab" data-tab="service">Service & Mitzvot</button><button class="tab" data-tab="plan">My Plan</button>
+</nav>
+
+<section id="home" class="panel">
+<div class="grid">
+<div class="card"><div class="eyebrow">Today's mission</div><h2>Become a Hebrew detective 🔎</h2><p>Learn a word, spot a pattern, and connect a piece of Jewish text to your own life.</p><button onclick="go('hebrew')">Start a 3-minute lesson</button></div>
+<div class="card"><div class="eyebrow">Your toolkit</div><h2>What are we learning?</h2><p>Reading Hebrew • vocabulary • Torah meaning • trope/cantillation • prayers and blessings • speaking with your own voice.</p><button class="secondary" onclick="go('plan')">See learning checklist</button></div>
+<div class="card wide"><h2>Suggested weekly rhythm</h2><div class="lessonlist">
+<div class="lesson"><span class="num">1</span><div><strong>Read</strong><p>Decode letters and vowels before trying to chant.</p></div></div>
+<div class="lesson"><span class="num">2</span><div><strong>Understand</strong><p>Translate key words and explain what is happening in the passage.</p></div></div>
+<div class="lesson"><span class="num">3</span><div><strong>Listen & chant</strong><p>Practice short phrases with the melody your cantor or tutor assigns.</p></div></div>
+<div class="lesson"><span class="num">4</span><div><strong>Make it yours</strong><p>Write down a question, a connection, or a value you want to share.</p></div></div>
+</div></div>
+<div class="card wide"><div class="note"><strong>Important:</strong> This app supports—not replaces—your rabbi, cantor, Hebrew teacher, or tutor. The assigned Torah/Haftarah verses, service parts, and chanting melody depend on your congregation and service date. Confirm the final assignment with them.</div></div>
+</div>
+</section>
+
+<section id="hebrew" class="panel hidden">
+<div class="grid">
+<div class="card"><div class="eyebrow">Flashcard practice</div><h2>Meet a Hebrew word</h2><div class="bighebrew" id="wordHebrew">שלום</div><div class="translit" id="wordTranslit">shalom</div><div class="meaning" id="wordMeaning">peace / hello / goodbye</div><p id="wordHint" style="text-align:center">One word, several ways to use it.</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="secondary" onclick="prevWord()">← Previous</button><button onclick="nextWord()">Next word →</button></div></div>
+<div class="card"><div class="eyebrow">Quick quiz</div><h2>What does תודה mean?</h2><p>Choose the best English meaning.</p><div class="choices" id="quizChoices"></div><div id="quizFeedback" class="feedback" aria-live="polite"></div><button class="secondary" onclick="newQuiz()">New question</button></div>
+<div class="card wide"><h2>Hebrew reading tip</h2><p>Hebrew is read from right to left. Vowel marks (nikud) help you pronounce words while learning; Torah scrolls themselves normally have no vowel or trope marks. Build confidence reading with vowels first, then follow your teacher's steps toward the assigned scroll text.</p><div class="hebrewline">תּוֹרָה • שָׁלוֹם • תּוֹדָה • חֶסֶד</div><p class="small">Torah • shalom • todah • chesed</p></div>
+</div>
+</section>
+
+<section id="torah" class="panel hidden">
+<div class="grid">
+<div class="card wide"><div class="eyebrow">Passage finder</div><h2>Find the reading connected to your date</h2><p>The weekly Torah portion depends on the Hebrew calendar, the service date, and sometimes the congregation's calendar and reading tradition. Start with the date of the ceremony—not just the birthday.</p>
+<div class="grid">
+<div><label for="serviceDate">Bat mitzvah service date</label><input id="serviceDate" type="date"><small>Enter the date confirmed or being considered by your family.</small></div>
+<div><label for="tradition">Congregation / reading tradition</label><select id="tradition"><option value="not-sure">Not sure yet</option><option>Reform</option><option>Conservative</option><option>Orthodox</option><option>Reconstructionist</option><option>Other</option></select><small>This helps frame questions for the clergy; it does not determine the assignment by itself.</small></div>
+</div>
+<p><button onclick="findPortion()">Open Torah portion lookup ↗</button> <button class="secondary" onclick="saveDate()">Save date to my plan</button></p><div id="dateFeedback" class="feedback" aria-live="polite"></div>
+<p class="small">The lookup opens My Jewish Learning's Torah portion resource. Confirm the actual reading, aliyah/verses, Haftarah, and any special-Shabbat reading with your rabbi or cantor.</p>
+</div>
+<div class="card"><h3>What might I be assigned?</h3><p><strong>Torah:</strong> a section from the Five Books of Moses.</p><p><strong>Haftarah:</strong> a related selection from the Prophets, if part of your service.</p><p><strong>Service leadership:</strong> blessings, prayers, or other parts of the service.</p></div>
+<div class="card"><h3>Make the passage meaningful</h3><p>After the passage is confirmed, add the exact book/chapter/verses below. The app can then be personalized around the real text rather than guessing.</p><label for="assignedText">Assigned passage (if known)</label><input id="assignedText" placeholder="e.g., Exodus 20:1–14"><button class="secondary" style="margin-top:8px" onclick="saveAssignment()">Save passage</button><div id="assignmentFeedback" class="feedback"></div></div>
+</div>
+</section>
+
+<section id="meaning" class="panel hidden">
+<div class="grid">
+<div class="card wide"><div class="eyebrow">Torah detective</div><h2>Read like a thoughtful teacher</h2><p>When you have your assigned passage, investigate it with these five questions. You do not need to agree with every interpretation; careful questions are part of Jewish learning.</p>
+<div class="lessonlist">
+<div class="lesson"><span class="num">1</span><div><strong>What happens?</strong><p>Retell the passage in 2–3 sentences without looking.</p></div></div>
+<div class="lesson"><span class="num">2</span><div><strong>Which words matter?</strong><p>Choose 2–4 Hebrew words. Learn their meaning and notice repeated words or surprising choices.</p></div></div>
+<div class="lesson"><span class="num">3</span><div><strong>What is puzzling?</strong><p>Write one honest question, tension, or detail that you do not understand.</p></div></div>
+<div class="lesson"><span class="num">4</span><div><strong>What have Jewish readers said?</strong><p>Compare at least one commentary or interpretation. Keep track of whose idea is whose.</p></div></div>
+<div class="lesson"><span class="num">5</span><div><strong>What does it ask of me?</strong><p>Connect the passage to a value, a real-life choice, your community, or the kind of person you want to become.</p></div></div>
+</div>
+<p><a class="linkbtn" href="https://www.sefaria.org/texts/Tanakh" target="_blank" rel="noopener">Explore Tanakh on Sefaria ↗</a> <a class="linkbtn secondary" href="https://reformjudaism.org/learning/torah-study/how-write-dvar-torah" target="_blank" rel="noopener">D’var Torah guide ↗</a></p>
+</div>
+<div class="card"><h3>My first big question</h3><label for="bigQuestion">What makes you curious about the passage?</label><textarea id="bigQuestion" rows="4" placeholder="I wonder why…"></textarea><button style="margin-top:8px" onclick="saveReflection()">Save reflection</button><div id="reflectionFeedback" class="feedback"></div></div>
+<div class="card"><h3>D’var Torah starter</h3><p>A short teaching often has a simple shape:</p><ol><li>Introduce the passage and its context.</li><li>Share one question or insight.</li><li>Explain a commentary or another perspective.</li><li>Connect the text to your life or community.</li><li>End with what you hope listeners will remember.</li></ol><p class="small">Your own ideas should lead. Use sources respectfully and credit interpretations you borrow.</p></div>
+</div>
+</section>
+
+<section id="service" class="panel hidden">
+<div class="grid">
+<div class="card"><div class="eyebrow">Vocabulary</div><h2>Know the ceremony words</h2><p><strong>Aliyah</strong> — being called up for Torah honors; also the term for an individual Torah-reading section.</p><p><strong>Haftarah</strong> — a reading from the Prophets.</p><p><strong>Trope / te’amim</strong> — cantillation marks that guide melody, stress, and phrasing.</p><p><strong>D’var Torah</strong> — a teaching or interpretation based on Torah.</p><p><strong>Mitzvah</strong> — a commandment; commonly also used for a meaningful Jewish obligation or good deed.</p></div>
+<div class="card"><div class="eyebrow">Trope practice</div><h2>Learn in the right order</h2><ol><li>Read the Hebrew words clearly without melody.</li><li>Mark phrase boundaries and punctuation.</li><li>Practice one short phrase at a time with the assigned recording.</li><li>Repeat difficult spots, not only the whole passage.</li><li>Gradually practice without vowels/trope marks if your teacher asks.</li></ol><p><a class="linkbtn" href="https://torahtrope.com/learn" target="_blank" rel="noopener">Open TorahTrope practice guide ↗</a></p></div>
+<div class="card wide"><h2>Jewish life beyond the reading</h2><p>A bat mitzvah is not only a performance. It marks growing responsibility and participation in Jewish life. Your community may also discuss:</p><div class="checkrow"><input type="checkbox" id="topic1" onchange="updateChecklist()"><label for="topic1">Tzedakah, justice, and helping others</label></div><div class="checkrow"><input type="checkbox" id="topic2" onchange="updateChecklist()"><label for="topic2">Shabbat, holidays, and synagogue life</label></div><div class="checkrow"><input type="checkbox" id="topic3" onchange="updateChecklist()"><label for="topic3">Jewish history, peoplehood, and Israel</label></div><div class="checkrow"><input type="checkbox" id="topic4" onchange="updateChecklist()"><label for="topic4">Prayer, blessings, and what they mean to me</label></div><div class="checkrow"><input type="checkbox" id="topic5" onchange="updateChecklist()"><label for="topic5">A mitzvah project or personal commitment</label></div><p class="small">Curriculum varies by congregation. Ask the rabbi or educator which topics are part of your family's program.</p></div>
+</div>
+</section>
+
+<section id="plan" class="panel hidden">
+<div class="grid">
+<div class="card wide"><div class="eyebrow">My learning plan</div><h2>Small steps add up</h2><p>Mark off what you have practiced. Your progress is saved in this browser on this device.</p>
+<div id="checklist"></div>
+</div>
+<div class="card"><h3>Practice notes</h3><label for="notes">What should I practice next?</label><textarea id="notes" rows="5" placeholder="Words I mix up… verses to repeat… a question for my tutor…"></textarea><button style="margin-top:8px" onclick="saveNotes()">Save notes</button><div id="notesFeedback" class="feedback"></div></div>
+<div class="card"><h3>Questions for my rabbi / cantor</h3><ul><li>Which exact verses am I responsible for?</li><li>Am I learning Torah, Haftarah, prayers, or more than one?</li><li>Which melody/tradition should I practice?</li><li>What service parts should I learn to understand, not just memorize?</li><li>What is the expected length and focus of my d’var Torah?</li></ul></div>
+</div>
+</section>
+</main>
+<footer>Made for curious learners and growing Jewish leaders. Progress stays in this browser; no account is needed.</footer>
+<script>
+const words=[
+{h:"שָׁלוֹם",t:"shalom",m:"peace / hello / goodbye",hint:"A greeting and a wish for peace."},
+{h:"תּוֹדָה",t:"todah",m:"thank you",hint:"A useful word to practice every day."},
+{h:"תּוֹרָה",t:"Torah",m:"Torah / teaching",hint:"The central text of Jewish learning."},
+{h:"חֶסֶד",t:"chesed",m:"kindness / loving-kindness",hint:"A value that appears throughout Jewish tradition."},
+{h:"מִצְוָה",t:"mitzvah",m:"commandment / good deed",hint:"A responsibility that can shape how we act."},
+{h:"צְדָקָה",t:"tzedakah",m:"charity / justice",hint:"Giving is connected with responsibility and justice."},
+{h:"שַׁבָּת",t:"Shabbat",m:"Sabbath",hint:"A weekly time for rest, community, and holiness."},
+{h:"לֵב",t:"lev",m:"heart",hint:"In Hebrew, the heart can also suggest thought and intention."}
+];
+let wi=0, quizWord=1, activeProfile='ella', done={};
+const profiles={ella:{name:'Ella',path:'builder',stage:'older learner'},margot:{name:'Margot',path:'starter',stage:'younger learner'}};
+function storeKey(k){return 'bm_'+activeProfile+'_'+k}
+function getItem(k){return localStorage.getItem(storeKey(k))}
+function setItem(k,v){localStorage.setItem(storeKey(k),v)}
+function switchProfile(id){activeProfile=id;document.getElementById('learnerProfile').value=id;load()}
+function saveLevel(level){setItem('level',level);updateGuidance()}
+function updateGuidance(){const p=profiles[activeProfile], level=getItem('level')||'auto';document.getElementById('greeting').textContent=p.name+'’s learning adventure';document.getElementById('profileDescription').textContent=`${p.name} is set up as the ${p.stage}. Progress, notes, dates, and assignments are saved separately for each daughter on this device.`;document.getElementById('learningLevel').value=level;const chosen=level==='auto'?p.path:level;const text={starter:'Start with short, playful letter/sound sessions, visual recognition, and simple Hebrew words.',builder:'Mix reading fluency, vocabulary, short phrases, and increasingly independent practice.',reader:'Focus on accurate reading, vocabulary in context, Torah questions, commentary, and d’var Torah skills.'};document.getElementById('practiceGuidance').textContent=text[chosen]+' You can change levels any time.';document.querySelector('#home .card h2').textContent=p.path==='starter'?'Play, notice, and discover Hebrew 🔎':'Become a Hebrew detective 🔎';document.querySelector('#home .card p').textContent=p.path==='starter'?'Learn a sound, spot a pattern, and connect a Hebrew word to Jewish life. Short wins build confidence.':'Learn a word, spot a pattern, and connect a piece of Jewish text to your own life.'}
+
+const tasks=["Practice Hebrew letters and vowels","Learn 10 useful Hebrew words","Confirm service date and exact reading with clergy","Read an English translation of the assigned passage","Learn the passage’s context and key words","Listen to the assigned trope recording","Practice short phrases aloud","Draft a question and personal connection","Prepare a first d’var Torah outline","Review service parts and blessings with teacher"];
+function go(id){document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='plan')renderTasks();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
+function renderWord(){let w=words[wi];wordHebrew.textContent=w.h;wordTranslit.textContent=w.t;wordMeaning.textContent=w.m;wordHint.textContent=w.hint}
+function nextWord(){wi=(wi+1)%words.length;renderWord();mark('word')}
+function prevWord(){wi=(wi+words.length-1)%words.length;renderWord()}
+function newQuiz(){quizWord=Math.floor(Math.random()*words.length);let w=words[quizWord];let opts=[w.m];while(opts.length<4){let v=words[Math.floor(Math.random()*words.length)].m;if(!opts.includes(v))opts.push(v)}opts.sort(()=>Math.random()-.5);document.getElementById('quizChoices').innerHTML=opts.map(o=>`<button onclick="answerQuiz(${JSON.stringify(o).replace(/"/g,'&quot;')})">${o}</button>`).join('');document.querySelector('#hebrew .card:nth-child(2) h2').textContent=`What does ${w.h} (${w.t}) mean?`;document.getElementById('quizFeedback').textContent=''}
+function answerQuiz(a){let ok=a===words[quizWord].m;let f=document.getElementById('quizFeedback');f.textContent=ok?'Correct! כל הכבוד — kol hakavod!':'Not quite. Try again, or flip through the word cards.';f.className='feedback '+(ok?'correct':'wrong');if(ok)mark('quiz')}
+function mark(k){done[k]=true;setItem('done',JSON.stringify(done));updateProgress()}
+function renderTasks(){checklist.innerHTML=tasks.map((t,i)=>`<div class="checkrow"><input type="checkbox" id="task${i}" ${done['task'+i]?'checked':''} onchange="toggleTask(${i},this.checked)"><label for="task${i}">${t}</label></div>`).join('')}
+function toggleTask(i,v){done['task'+i]=v;setItem('done',JSON.stringify(done));updateProgress()}
+function updateProgress(){let count=Object.values(done).filter(Boolean).length;let pct=Math.min(100,Math.round(count/(tasks.length+2)*100));progressText.textContent=pct+'%';progressBar.style.width=pct+'%'}
+function findPortion(){let d=serviceDate.value;if(!d){dateFeedback.textContent='Choose the service date first.';dateFeedback.className='feedback wrong';return}setItem('date',d);setItem('tradition',tradition.value);dateFeedback.textContent='Opening a Torah portion resource. Confirm the exact reading with your congregation.';dateFeedback.className='feedback';window.open('https://www.myjewishlearning.com/article/what-is-the-torah-portion/','_blank','noopener');mark('portionLookup')}
+function saveDate(){if(!serviceDate.value){dateFeedback.textContent='Choose a date first.';dateFeedback.className='feedback wrong';return}setItem('date',serviceDate.value);setItem('tradition',tradition.value);dateFeedback.textContent='Date saved to this browser.';mark('dateSaved')}
+function saveAssignment(){setItem('assignment',assignedText.value);assignmentFeedback.textContent='Passage saved.';mark('assignment')}
+function saveReflection(){setItem('reflection',bigQuestion.value);reflectionFeedback.textContent='Reflection saved.';mark('reflection')}
+function saveNotes(){setItem('notes',notes.value);notesFeedback.textContent='Notes saved.'}
+function updateChecklist(){let ids=['topic1','topic2','topic3','topic4','topic5'];setItem('topics',JSON.stringify(ids.map(i=>document.getElementById(i).checked)))}
+function load(){done=JSON.parse(getItem('done')||'{}');['topic1','topic2','topic3','topic4','topic5'].forEach(id=>document.getElementById(id).checked=false);updateGuidance();let d=getItem('date');serviceDate.value=d||'';let tr=getItem('tradition');tradition.value=tr||'not-sure';assignedText.value=getItem('assignment')||'';bigQuestion.value=getItem('reflection')||'';notes.value=getItem('notes')||'';let ts=JSON.parse(getItem('topics')||'[]');ts.forEach((v,i)=>{if(document.getElementById('topic'+(i+1)))document.getElementById('topic'+(i+1)).checked=v});renderWord();newQuiz();renderTasks();updateProgress()}
+
+document.getElementById('learnerProfile').value=activeProfile;load();
+</script>
+</body>
+</html>
